@@ -5,6 +5,7 @@ from trip_tasks import TripTasks
 
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
+import time
 load_dotenv()
 
 class TripCrew:
@@ -75,7 +76,7 @@ if __name__ == "__main__":
   #   """))
 
   location = "Vienna, Austria"
-  cities = "Paris, France; Rome, Italy; Berlin, Germany"
+  cities = "Madrid, Dubai"
   start_date = (datetime.now() + timedelta(days=10)).strftime("%Y-%m-%d")
   end_date = (datetime.now() + timedelta(days=20)).strftime("%Y-%m-%d")
   date_range = f"{start_date} to {end_date}"
@@ -83,8 +84,14 @@ if __name__ == "__main__":
   interests = "art, history, food, culture"
 
   trip_crew = TripCrew(location, cities, date_range, interests)
+  
+  start_time = time.time()
   result = trip_crew.run()
+  end_time = time.time()
+  execution_time = end_time - start_time
+  
   print("\n\n########################")
   print("## Here is you Trip Plan")
   print("########################\n")
   print(result)
+  print(f"\n⏱️  Execution time: {execution_time:.2f} seconds ({execution_time/60:.2f} minutes)")
