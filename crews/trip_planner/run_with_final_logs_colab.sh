@@ -43,12 +43,7 @@ for ((i=1; i<=RUNS; i++)); do
     cat "$TMP_RAW" > "$LOG_FILE"
     rm "$TMP_RAW"
 
-    # Download to local machine automatically
-    python3 - <<EOF
-from google.colab import files
-files.download("$LOG_FILE")
-EOF
+    echo "Log saved: $LOG_FILE"
 done
 
 echo "All runs completed. Logs saved in: $LOG_DIR"
-echo "Files have also been downloaded to your PC."
