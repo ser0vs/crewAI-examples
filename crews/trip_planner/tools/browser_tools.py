@@ -1,10 +1,7 @@
-import json
-import os
-
 import requests
 from crewai import Agent, Task
 from crewai.tools import tool
-from unstructured.partition.html import partition_html
+from bs4 import BeautifulSoup
 
 
 class BrowserTools():
@@ -19,24 +16,25 @@ class BrowserTools():
     Returns:
         Summarized content from the website
     """
-    token = os.getenv('BROWSERLESS_API_KEY')
     try:
-      if token:
-        url = f"https://chrome.browserless.io/content?token={token}"
-        payload = json.dumps({"url": website})
-        headers = {'cache-control': 'no-cache', 'content-type': 'application/json'}
-        response = requests.request("POST", url, headers=headers, data=payload, timeout=60)
-        html_text = response.text
-      else:
-        # Fallback: fetch directly if no Browserless token is set
-        response = requests.get(website, timeout=60)
-        response.raise_for_status()
-        html_text = response.text
+      headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+      response = requests.get(website, headers=headers, timeout=60)
+      response.raise_for_status()
+      html_text = response.text
     except Exception as e:
       return f"Error fetching website content: {str(e)}"
 
-    elements = partition_html(text=html_text)
-    content = "\n\n".join([str(el) for el in elements])
+    soup = BeautifulSoup(html_text, 'html.parser')
+    
+    # Remove script and style elements
+    for element in soup(['script', 'style', 'nav', 'footer', 'header']):
+      element.decompose()
+    
+    # Extract text content
+    text_elements = soup.find_all(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'td', 'th', 'span', 'div'])
+    content = "\n\n".join([el.get_text(strip=True) for el in text_elements if el.get_text(strip=True)])
     content = [content[i:i + 8000] for i in range(0, len(content), 8000)]
     summaries = []
     for chunk in content:
