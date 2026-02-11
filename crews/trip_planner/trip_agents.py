@@ -42,7 +42,7 @@ class TripAgents:
     def local_expert(self):
         return Agent(
             role='Local Expert at this city',
-            goal=("Provide the BEST insights about the selected city",
+            goal=("Provide the BEST insights about the selected city"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
             "- After receiving tool results, you MUST provide the final list of insights.\n"
@@ -63,8 +63,7 @@ class TripAgents:
     def travel_concierge(self):
         return Agent(
             role='Amazing Travel Concierge',
-            goal=("Create the most amazing travel itineraries with budget and 
-            packing suggestions for the city"
+            goal=("Create the most amazing travel itineraries with budget and packing suggestions for the city"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
             "- After receiving tool results, you MUST provide the final itinerary.\n"
