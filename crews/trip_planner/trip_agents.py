@@ -9,7 +9,7 @@ from tools.search_tools import SearchTools
 class TripAgents:
 
     def __init__(self):
-        ollama_model = os.getenv("OLLAMA_MODEL", "qwen3:8b")
+        ollama_model = os.getenv("OLLAMA_MODEL", "llama3.2:latest")
         ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
         
         # CrewAI's LLM class with Ollama provider
@@ -24,10 +24,7 @@ class TripAgents:
             role='City Selection Expert',
             goal=("Select the best city based on weather, season, and prices\n"
             "Rules:\n"
-            "- You may use at most ONE tool.\n"
-            "- After receiving tool results, you MUST provide the final choice of city.\n"
-            "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
-            "- The final answer must only contain the city of your choice and explanation."),
+            "- You may use at most THREE tools.\n"),
             backstory='An expert in analyzing travel data to pick ideal destinations',
             tools=[
                 SearchTools.search_internet,
@@ -44,10 +41,7 @@ class TripAgents:
             role='Local Expert at this city',
             goal=("Provide the BEST insights about the selected city\n"
             "Rules:\n"
-            "- You may use at most ONE tool.\n"
-            "- After receiving tool results, you MUST provide the final list of insights.\n"
-            "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
-            "- The final answer must only contain the completed list of insights."),
+            "- You may use at most THREE tools.\n"),
             backstory=("""A knowledgeable local guide with extensive information
             about the city, its attractions and customs"""),
             tools=[
@@ -63,12 +57,9 @@ class TripAgents:
     def travel_concierge(self):
         return Agent(
             role='Amazing Travel Concierge',
-            goal=("Create the most amazing travel itineraries with budget and packing suggestions for the city"
+            goal=("Create the most amazing travel itineraries with budget and packing suggestions for the city\n"
             "Rules:\n"
-            "- You may use at most ONE tool.\n"
-            "- After receiving tool results, you MUST provide the final itinerary.\n"
-            "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
-            "- The final answer must only contain the completed itinerary."),
+            "- You may use at most THREE tools.\n"),
             backstory=("""Specialist in travel planning and logistics with 
             decades of experience"""),
             tools=[
