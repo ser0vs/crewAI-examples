@@ -15,20 +15,7 @@ class TripAgents:
         # CrewAI's LLM class with Ollama provider
         self.llm = LLM(
             model=f"ollama/{ollama_model}",
-            base_url=ollama_base_url,
-            temperature=0.2,
-            system_prompt="""
-You are a reasoning agent.
-
-When you finish, you MUST output only the final answer.
-Never output:
-Thought:
-Action:
-Action Input:
-Observation:
-
-Tool use is internal. Final answer must be plain text only.
-"""
+            base_url=ollama_base_url
         )
 
 
@@ -37,16 +24,14 @@ Tool use is internal. Final answer must be plain text only.
             role='City Selection Expert',
             goal=("Select the best city based on weather, season, and prices\n"
             "Rules:\n"
-            "- You may use at most ONE tool.\n"
-            "- The final answer MUST NOT contain 'Action', 'Thought', 'Observation'.\n"
             "- The final answer must be a detailed report on the chosen city."),
             backstory='An expert in analyzing travel data to pick ideal destinations',
             tools=[
                 SearchTools.search_internet,
-                BrowserTools.scrape_and_summarize_website,
+                # BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=2,
+            max_iter=4,
             allow_delegation=False,
             verbose=True
         )
@@ -57,16 +42,15 @@ Tool use is internal. Final answer must be plain text only.
             goal=("Provide the BEST insights about the selected city\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
-            "- The final answer MUST NOT contain 'Action', 'Thought', 'Observation'.\n"
             "- The final answer must be a detailed list of insights on the selected city."),
             backstory=("""A knowledgeable local guide with extensive information
             about the city, its attractions and customs"""),
             tools=[
                 SearchTools.search_internet,
-                BrowserTools.scrape_and_summarize_website,
+                # BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=2,
+            max_iter=4,
             allow_delegation=False,
             verbose=True
         )
@@ -77,17 +61,16 @@ Tool use is internal. Final answer must be plain text only.
             goal=("Create the most amazing travel itineraries with budget and packing suggestions for the city\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
-            "- The final answer MUST NOT contain 'Action', 'Thought', 'Observation'.\n"
             "- The final answer must only contain the completed itinerary."),
             backstory=("""Specialist in travel planning and logistics with 
             decades of experience"""),
             tools=[
                 SearchTools.search_internet,
-                BrowserTools.scrape_and_summarize_website,
-                CalculatorTools.calculate,
+                # BrowserTools.scrape_and_summarize_website,
+                # CalculatorTools.calculate,
             ],
             llm=self.llm,
-            max_iter=2,
+            max_iter=4,
             allow_delegation=False,
             verbose=True
         )
