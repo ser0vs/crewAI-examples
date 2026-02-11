@@ -15,7 +15,9 @@ class TripAgents:
         # CrewAI's LLM class with Ollama provider
         self.llm = LLM(
             model=f"ollama/{ollama_model}",
-            base_url=ollama_base_url
+            base_url=ollama_base_url,
+            temperature=0.1,
+            top_p=0.9,
         )
 
 
@@ -26,7 +28,7 @@ class TripAgents:
             "Rules:\n"
             "- You may use at most ONE tool.\n"
             "- After receiving tool results, you MUST provide the final list of attractions.\n"
-            "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
+            "- The final answer MUST NOT contain 'Action', 'Thought', 'Observation'.\n"
             "- The final answer must be a detailed report on the chosen city."),
             backstory='An expert in analyzing travel data to pick ideal destinations',
             tools=[
@@ -46,7 +48,7 @@ class TripAgents:
             "Rules:\n"
             "- You may use at most ONE tool.\n"
             "- After receiving tool results, you MUST provide the final list of attractions.\n"
-            "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
+            "- The final answer MUST NOT contain 'Action', 'Thought', 'Observation'.\n"
             "- The final answer must be a detailed list of insights on the selected city."),
             backstory=("""A knowledgeable local guide with extensive information
             about the city, its attractions and customs"""),
@@ -67,7 +69,7 @@ class TripAgents:
             "Rules:\n"
             "- You may use at most ONE tool.\n"
             "- After receiving tool results, you MUST provide the final list of attractions.\n"
-            "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
+            "- The final answer MUST NOT contain 'Action', 'Thought', 'Observation'.\n"
             "- The final answer must only contain the completed itinerary."),
             backstory=("""Specialist in travel planning and logistics with 
             decades of experience"""),
