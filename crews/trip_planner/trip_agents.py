@@ -24,7 +24,7 @@ class TripAgents:
             role='City Selection Expert',
             goal=("Select the best city based on weather, season, and prices\n"
             "Rules:\n"
-            "- You may use at most ONE calls of tools.\n"
+            "- You may use at most ONE tool.\n"
             "- After receiving tool results, you MUST provide the final list of attractions.\n"
             "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
             "- The final answer must be a detailed report on the chosen city."),
