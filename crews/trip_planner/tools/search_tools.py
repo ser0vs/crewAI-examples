@@ -1,8 +1,7 @@
-import json
-import os
+import time
 
-import requests
 from crewai.tools import tool
+from ddgs import DDGS
 
 
 class SearchTools():
@@ -18,26 +17,46 @@ class SearchTools():
         Search results with titles, links, and snippets
     """
     top_result_to_return = 4
-    url = "https://google.serper.dev/search"
-    payload = json.dumps({"q": query})
-    headers = {
-        'X-API-KEY': os.environ['SERPER_API_KEY'],
-        'content-type': 'application/json'
-    }
-    response = requests.request("POST", url, headers=headers, data=payload)
-    # check if there is an organic key
-    if 'organic' not in response.json():
-      return "Sorry, I couldn't find anything about that, there could be an error with you serper api key."
-    else:
-      results = response.json()['organic']
-      string = []
-      for result in results[:top_result_to_return]:
+    max_attempts = 5
+    
+    with DDGS() as ddgs:
+      for attempt in range(max_attempts):
         try:
-          string.append('\n'.join([
-              f"Title: {result['title']}", f"Link: {result['link']}",
-              f"Snippet: {result['snippet']}", "\n-----------------"
-          ]))
-        except KeyError:
-          next
+          results = ddgs.text(
+            query=query,
+            max_results=top_result_to_return,
+            region='wt-wt',
+            backend='lite'
+          )
+          
+          string = []
+          for result in results:
+            try:
+              string.append('\n'.join([
+                  f"Title: {result.get('title', 'N/A')}",
+                  f"Link: {result.get('href', 'N/A')}",
+                  f"Snippet: {result.get('body', 'N/A')}",
+                  "\n-----------------"
+              ]))
+            except KeyError:
+              continue
+          
+          return '\n'.join(string) if string else "No results found."
+          
+        except Exception as e:
+          print(f"Retry due to: {e}")
+          time.sleep(1.2 * (attempt + 1))
+    
+    return "Sorry, I couldn't find anything about that. DuckDuckGo search failed after retries."
 
-      return '\n'.join(string)
+
+if __name__ == "__main__":
+  import sys
+  
+  test_query = sys.argv[1] if len(sys.argv) > 1 else "best restaurants in Vienna"
+  
+  print(f"Testing search_internet with: {test_query}")
+  print("-" * 50)
+  
+  result = SearchTools.search_internet.run(test_query)
+  print(result)
