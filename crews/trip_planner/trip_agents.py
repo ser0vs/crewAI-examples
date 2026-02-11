@@ -24,7 +24,9 @@ class TripAgents:
             role='City Selection Expert',
             goal=("Select the best city based on weather, season, and prices\n"
             "Rules:\n"
-            "- You may use at most TWO calls of tools.\n"
+            "- You may use at most ONE calls of tools.\n"
+            "- After receiving tool results, you MUST provide the final list of attractions.\n"
+            "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
             "- The final answer must be a detailed report on the chosen city."),
             backstory='An expert in analyzing travel data to pick ideal destinations',
             tools=[
@@ -42,7 +44,9 @@ class TripAgents:
             role='Local Expert at this city',
             goal=("Provide the BEST insights about the selected city\n"
             "Rules:\n"
-            "- You may use at most TWO calls of tools.\n"
+            "- You may use at most ONE tool.\n"
+            "- After receiving tool results, you MUST provide the final list of attractions.\n"
+            "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
             "- The final answer must be a detailed list of insights on the selected city."),
             backstory=("""A knowledgeable local guide with extensive information
             about the city, its attractions and customs"""),
@@ -59,9 +63,11 @@ class TripAgents:
     def travel_concierge(self):
         return Agent(
             role='Amazing Travel Concierge',
-            goal=("Create the most amazing travel itineraries with budget and packing suggestions for the city"
+            goal=("Create the most amazing travel itineraries with budget and packing suggestions for the city\n"
             "Rules:\n"
-            "- You may use at most TWO calls of tools.\n"
+            "- You may use at most ONE tool.\n"
+            "- After receiving tool results, you MUST provide the final list of attractions.\n"
+            "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
             "- The final answer must only contain the completed itinerary."),
             backstory=("""Specialist in travel planning and logistics with 
             decades of experience"""),
