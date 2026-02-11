@@ -24,6 +24,8 @@ class TripAgents:
             role='City Selection Expert',
             goal=("Select the best city based on weather, season, and prices\n"
             "Rules:\n"
+            "- You may use at most ONE tool.\n"
+            "- After you executed tool, you must return the result immediately.\n"
             "- The final answer must be a detailed report on the chosen city."),
             backstory='An expert in analyzing travel data to pick ideal destinations',
             tools=[
@@ -31,7 +33,7 @@ class TripAgents:
                 # BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=4,
+            max_iter=3,
             allow_delegation=False,
             verbose=True
         )
@@ -42,6 +44,7 @@ class TripAgents:
             goal=("Provide the BEST insights about the selected city\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
+            "- After you executed tool, you must return the result immediately.\n"
             "- The final answer must be a detailed list of insights on the selected city."),
             backstory=("""A knowledgeable local guide with extensive information
             about the city, its attractions and customs"""),
@@ -50,7 +53,7 @@ class TripAgents:
                 # BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=4,
+            max_iter=3,
             allow_delegation=False,
             verbose=True
         )
@@ -61,6 +64,7 @@ class TripAgents:
             goal=("Create the most amazing travel itineraries with budget and packing suggestions for the city\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
+            "- After you executed tool, you must return the result immediately.\n"
             "- The final answer must only contain the completed itinerary."),
             backstory=("""Specialist in travel planning and logistics with 
             decades of experience"""),
@@ -70,7 +74,7 @@ class TripAgents:
                 # CalculatorTools.calculate,
             ],
             llm=self.llm,
-            max_iter=4,
+            max_iter=3,
             allow_delegation=False,
             verbose=True
         )
