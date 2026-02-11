@@ -25,9 +25,9 @@ class TripAgents:
             goal=("Select the best city based on weather, season, and prices\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
-            "- After receiving tool results, you MUST provide the final list of insights.\n"
+            "- After receiving tool results, you MUST provide the final choice of city.\n"
             "- The final answer MUST NOT contain 'Action', 'Thought', or tool calls.\n"
-            "- The final answer must only contain the completed list of insights."),
+            "- The final answer must only contain the city of your choice and explanation."),
             backstory='An expert in analyzing travel data to pick ideal destinations',
             tools=[
                 SearchTools.search_internet,
@@ -42,7 +42,7 @@ class TripAgents:
     def local_expert(self):
         return Agent(
             role='Local Expert at this city',
-            goal=("Provide the BEST insights about the selected city"
+            goal=("Provide the BEST insights about the selected city\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
             "- After receiving tool results, you MUST provide the final list of insights.\n"
