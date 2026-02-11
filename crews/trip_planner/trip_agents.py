@@ -15,9 +15,7 @@ class TripAgents:
         # CrewAI's LLM class with Ollama provider
         self.llm = LLM(
             model=f"ollama/{ollama_model}",
-            base_url=ollama_base_url,
-            temperature=0.1,
-            top_p=0.9,
+            base_url=ollama_base_url
         )
 
 
@@ -27,7 +25,6 @@ class TripAgents:
             goal=("Select the best city based on weather, season, and prices\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
-            "- After receiving tool results, you MUST provide the final list of attractions.\n"
             "- The final answer MUST NOT contain 'Action', 'Thought', 'Observation'.\n"
             "- The final answer must be a detailed report on the chosen city."),
             backstory='An expert in analyzing travel data to pick ideal destinations',
@@ -36,7 +33,7 @@ class TripAgents:
                 BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=5,
+            max_iter=3,
             allow_delegation=False,
             verbose=True
         )
@@ -47,7 +44,6 @@ class TripAgents:
             goal=("Provide the BEST insights about the selected city\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
-            "- After receiving tool results, you MUST provide the final list of attractions.\n"
             "- The final answer MUST NOT contain 'Action', 'Thought', 'Observation'.\n"
             "- The final answer must be a detailed list of insights on the selected city."),
             backstory=("""A knowledgeable local guide with extensive information
@@ -57,7 +53,7 @@ class TripAgents:
                 BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=5,
+            max_iter=3,
             allow_delegation=False,
             verbose=True
         )
@@ -68,7 +64,6 @@ class TripAgents:
             goal=("Create the most amazing travel itineraries with budget and packing suggestions for the city\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
-            "- After receiving tool results, you MUST provide the final list of attractions.\n"
             "- The final answer MUST NOT contain 'Action', 'Thought', 'Observation'.\n"
             "- The final answer must only contain the completed itinerary."),
             backstory=("""Specialist in travel planning and logistics with 
@@ -79,7 +74,7 @@ class TripAgents:
                 CalculatorTools.calculate,
             ],
             llm=self.llm,
-            max_iter=5,
+            max_iter=3,
             allow_delegation=False,
             verbose=True
         )
