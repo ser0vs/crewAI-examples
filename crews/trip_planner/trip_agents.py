@@ -25,6 +25,7 @@ class TripAgents:
             goal=("Select the best city based on weather, season, and prices\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
+            "- Use the tools only for data that you can't know directly\n"
             "- After you executed tool, you must return the result immediately.\n"
             "- The final answer must be a detailed report on the chosen city."),
             backstory='An expert in analyzing travel data to pick ideal destinations',
@@ -44,6 +45,7 @@ class TripAgents:
             goal=("Provide the BEST insights about the selected city\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
+            "- Use the tools only for data that you can't know directly\n"
             "- After you executed tool, you must return the result immediately.\n"
             "- The final answer must be a detailed list of insights on the selected city."),
             backstory=("""A knowledgeable local guide with extensive information
@@ -64,6 +66,7 @@ class TripAgents:
             goal=("Create the most amazing travel itineraries with budget and packing suggestions for the city\n"
             "Rules:\n"
             "- You may use at most ONE tool.\n"
+            "- Use the tools only for data that you can't know directly\n"
             "- After you executed tool, you must return the result immediately.\n"
             "- The final answer must only contain the completed itinerary."),
             backstory=("""Specialist in travel planning and logistics with 
