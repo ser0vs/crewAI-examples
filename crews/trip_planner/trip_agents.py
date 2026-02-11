@@ -15,7 +15,20 @@ class TripAgents:
         # CrewAI's LLM class with Ollama provider
         self.llm = LLM(
             model=f"ollama/{ollama_model}",
-            base_url=ollama_base_url
+            base_url=ollama_base_url,
+            temperature=0.2,
+            system_prompt="""
+You are a reasoning agent.
+
+When you finish, you MUST output only the final answer.
+Never output:
+Thought:
+Action:
+Action Input:
+Observation:
+
+Tool use is internal. Final answer must be plain text only.
+"""
         )
 
 
@@ -33,7 +46,7 @@ class TripAgents:
                 BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=3,
+            max_iter=2,
             allow_delegation=False,
             verbose=True
         )
@@ -53,7 +66,7 @@ class TripAgents:
                 BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=3,
+            max_iter=2,
             allow_delegation=False,
             verbose=True
         )
@@ -74,7 +87,7 @@ class TripAgents:
                 CalculatorTools.calculate,
             ],
             llm=self.llm,
-            max_iter=3,
+            max_iter=2,
             allow_delegation=False,
             verbose=True
         )
