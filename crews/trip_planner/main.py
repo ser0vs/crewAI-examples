@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
   location = "Vienna, Austria"
   cities = "Madrid, Dubai"
-  start_date = (datetime.now() + timedelta(days=10)).strftime("%Y-%m-%d")
+  start_date = (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d")
   end_date = (datetime.now() + timedelta(days=20)).strftime("%Y-%m-%d")
   date_range = f"{start_date} to {end_date}"
 
