@@ -36,7 +36,7 @@ class TripAgents:
                 BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=3,
+            max_iter=5,
             allow_delegation=False,
             verbose=True
         )
@@ -57,7 +57,7 @@ class TripAgents:
                 BrowserTools.scrape_and_summarize_website,
             ],
             llm=self.llm,
-            max_iter=3,
+            max_iter=5,
             allow_delegation=False,
             verbose=True
         )
@@ -79,7 +79,7 @@ class TripAgents:
                 CalculatorTools.calculate,
             ],
             llm=self.llm,
-            max_iter=3,
+            max_iter=5,
             allow_delegation=False,
             verbose=True
         )
