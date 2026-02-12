@@ -38,7 +38,7 @@ class BrowserTools():
     content = [content[i:i + 8000] for i in range(0, len(content), 8000)]
     summaries = []
     for idx, chunk in enumerate(content):
-      ollama_model = os.getenv("OLLAMA_MODEL", "llama3.2:latest")
+      ollama_model = os.getenv("OLLAMA_MODEL", "qwen3:8b")
       ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
       llm = LLM(
         model=f"ollama/{ollama_model}",
