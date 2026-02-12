@@ -23,10 +23,7 @@ class TripAgents:
             role='City Selection Expert',
             goal="Select the best city based on weather, season, and prices",
             backstory='An expert in analyzing travel data to pick ideal destinations',
-            tools=[
-                SearchTools.search_internet,
-                BrowserTools.scrape_and_summarize_website,
-            ],
+            tools=[],
             llm=self.llm,
             verbose=True
         )
@@ -34,7 +31,8 @@ class TripAgents:
     def local_expert(self):
         return Agent(
             role='Local Expert at this city',
-            goal="Provide the BEST insights about the selected city",
+            goal=("Provide the best recommendation where to go in defined city based on text content."
+            "Rule: use tools only when necessary."),
             backstory=("""A knowledgeable local guide with extensive information
             about the city, its attractions and customs"""),
             tools=[
@@ -48,14 +46,11 @@ class TripAgents:
     def travel_concierge(self):
         return Agent(
             role='Amazing Travel Concierge',
-            goal="Create the most amazing travel itineraries with budget and packing suggestions for the city selected",
+            goal=("Plan the best trip itinerary based on the chosen city and provided information."
+            "Rule: use tools only when necessary."),
             backstory=("""Specialist in travel planning and logistics with 
             decades of experience"""),
-            tools=[
-                SearchTools.search_internet,
-                BrowserTools.scrape_and_summarize_website,
-                CalculatorTools.calculate,
-            ],
+            tools=[],
             llm=self.llm,
             verbose=True
         )
