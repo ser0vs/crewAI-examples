@@ -23,10 +23,7 @@ class TripAgents:
             role='City Selection Expert',
             goal="Select the best city based on weather, season, and prices",
             backstory='An expert in analyzing travel data to pick ideal destinations',
-            tools=[
-                SearchTools.search_internet,
-                BrowserTools.scrape_and_summarize_website,
-            ],
+            tools=[],
             llm=self.llm,
             max_iter=3,
             allow_delegation=False,
@@ -39,10 +36,7 @@ class TripAgents:
             goal="Provide the BEST insights about the selected city",
             backstory=("""A knowledgeable local guide with extensive information
             about the city, its attractions and customs"""),
-            tools=[
-                SearchTools.search_internet,
-                BrowserTools.scrape_and_summarize_website,
-            ],
+            tools=[],
             llm=self.llm,
             max_iter=3,
             allow_delegation=False,
@@ -55,11 +49,7 @@ class TripAgents:
             goal="Create the most amazing travel itineraries with budget and packing suggestions for the city selected",
             backstory=("""Specialist in travel planning and logistics with 
             decades of experience"""),
-            tools=[
-                SearchTools.search_internet,
-                BrowserTools.scrape_and_summarize_website,
-                CalculatorTools.calculate,
-            ],
+            tools=[],
             llm=self.llm,
             max_iter=3,
             allow_delegation=False,
