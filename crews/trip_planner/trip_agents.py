@@ -25,8 +25,6 @@ class TripAgents:
             backstory='An expert in analyzing travel data to pick ideal destinations',
             tools=[],
             llm=self.llm,
-            max_iter=3,
-            allow_delegation=False,
             verbose=True
         )
 
@@ -38,8 +36,6 @@ class TripAgents:
             about the city, its attractions and customs"""),
             tools=[],
             llm=self.llm,
-            max_iter=3,
-            allow_delegation=False,
             verbose=True
         )
 
@@ -51,7 +47,5 @@ class TripAgents:
             decades of experience"""),
             tools=[],
             llm=self.llm,
-            max_iter=3,
-            allow_delegation=False,
             verbose=True
         )
