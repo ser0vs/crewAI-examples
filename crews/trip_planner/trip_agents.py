@@ -47,16 +47,6 @@ class TripAgents:
             max_iter=3,
             allow_delegation=False,
             verbose=True
-            backstory=("""A knowledgeable local guide with extensive information
-            about the city, its attractions and customs"""),
-            tools=[
-                SearchTools.search_internet,
-                BrowserTools.scrape_and_summarize_website,
-            ],
-            llm=self.llm,
-            max_iter=3,
-            allow_delegation=False,
-            verbose=True
         )
 
     def travel_concierge(self):
